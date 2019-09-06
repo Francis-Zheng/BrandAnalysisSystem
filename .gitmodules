@@ -1,0 +1,6 @@
+[submodule "brand-user-authorization-backend"]
+	path = brand-user-authorization-backend
+	url = https://github.com/Francis-Zheng/brand-user-authorization-backend.git
+[submodule "BrandAnalysis-Questionnaire"]
+	path = BrandAnalysis-Questionnaire
+	url = https://github.com/Francis-Zheng/BrandAnalysis-Questionnaire.git

@@ -4,3 +4,6 @@
 [submodule "BrandAnalysis-Questionnaire"]
 	path = BrandAnalysis-Questionnaire
 	url = https://github.com/Francis-Zheng/BrandAnalysis-Questionnaire.git
+[submodule "brand-report-backend"]
+	path = brand-report-backend
+	url = https://github.com/packagewjx/brand-report-backend.git

@@ -7,3 +7,6 @@
 [submodule "brand-report-backend"]
 	path = brand-report-backend
 	url = https://github.com/packagewjx/brand-report-backend.git
+[submodule "brand-report-web"]
+	path = brand-report-web
+	url = https://github.com/packagewjx/brand-report-web.git

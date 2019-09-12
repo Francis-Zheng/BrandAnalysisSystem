@@ -3,9 +3,9 @@
 
 ## 各个子系统及数据库URL
 - 用户管理：localhost:8085
-- 调查问卷：localhost:8086
-- 分析报告：localhost:8087
-- 口碑分析：
+- 调查问卷：localhost:8087
+- 品牌报告后端：localhost:8080
+- 品牌报告前端（含口碑分析）：localhost:3000
 - MongoDB:localhost:27019
 - Redis:localhost:6379
 

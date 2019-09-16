@@ -1,50 +1,97 @@
 version: "3"
 
+networks:
+  brand_network:
+    driver: bridge
+
 services:
   mongo:
     image: mongo:4.0
+    container_name: brand-mongo-container
     volumes:
       - ./brand-report-backend/docker/mongo/db/:/data/db/
     restart: always
     ports:
       - 27019:27017
-  brand-report-backend:
-    build: ./brand-report-backend/docker/backend/
+    networks:
+      - brand_network
+  redis:
+    image: redis:latest
+    container_name: brand-redis-container
+    volumes:
+      - ./CNCommentFront/docker/data:/data
+    restart: always
+    command: redis-server --requirepass 123456
     ports:
-      - 8080:8080
+      - 6379:6379
+    networks:
+      - brand_network
+  brand-report-backend:
+    container_name: brand-report-backend-container
+    build: ./brand-report-backend/docker/backend/
+    volumes:
+      - ./brand-report-backend/docker/backend/logs:/var/lib/message/brand-report-backend
+      - ./brand-report-backend/docker/backend/data:/data
     restart: always
     environment:
       BRAND_FILE: /data/brand.json
       INDEX_FILE: /data/index.json
       COLLECTION_FILE: /data/collection.json
-    volumes:
-      - ./brand-report-backend/docker/backend/logs:/var/lib/message/brand-report-backend
-      - ./brand-report-backend/docker/backend/data:/data
+    ports:
+      - 8080:8080
     depends_on:
       - mongo
+    networks:
+      - brand_network
   brand-user-authorization-backend:
     build: ./brand-user-authorization-backend/docker/backend/
-    ports:
-      - 8085:8081
-    restart: always
+    container_name: brand-user-authorization-backend-container
     volumes:
       - ./brand-user-authorization-backend/docker/backend/data:/data
+    restart: always
+    ports:
+      - 8085:8081
     depends_on:
       - brand-report-backend
-  brand_questionniare:
+    networks:
+      - brand_network
+  brand-questionniare:
     build: ./BrandAnalysis-Questionnaire/docker
+    container_name: brand-questionniare-container
+    volumes:
+      - ./BrandAnalysis-Questionnaire:/BrandAnalysis-Questionnaire
+    restart: always
+    command: bash ./docker/docker-start.sh
     ports:
       - 8087:8000
-    volumes:
-      - ./BrandAnalysis-Questionnaire:/BrandAnalysis-Questionnaire   #挂载login-register/ 目录下的所有文件到容器的/login-register/目录中
-    command: bash ./docker/docker-start.sh  # 执行命令，有多种格式
-    restart: always
     depends_on:
       - brand-user-authorization-backend
+    networks:
+      - brand_network
+  word-mouth-front:
+    build: ./CNCommentFront/docker
+    container_name: word-mouth-front-container
+    volumes:
+      - ./CNCommentFront:/app/CNCommentFront
+    restart: always
+    ports:
+      - 5000:5000
+    depends_on:
+      - redis
+    networks:
+      - brand_network
   brand-report-web:
     build: ./brand-report-web
+    container_name: brand-report-web-container
     volumes:
       - ./brand-report-web/src:/app/brand-report-web/src
       - ./brand-report-web/public:/app/brand-report-web/public
+    restart: always
     ports:
       - 3000:3000
+    depends_on:
+      - brand-report-backend
+      - word-mouth-front
+    networks:
+      - brand_network
+

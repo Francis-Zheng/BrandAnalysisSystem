@@ -26,6 +26,21 @@ services:
       - 6379:6379
     networks:
       - brand_network
+  mysql:
+    image: mysql:5.7
+    container_name: brand-mysql-container
+    restart: always
+    volumes:
+      - ./corpus-label-system/docker/mysql/data:/var/lib/mysql
+      - ./corpus-label-system/docker/mysql/conf:/etc/mysql/conf.d
+      - ./corpus-label-system/docker/mysql/backup:/docker-entrypoint-initdb.d
+    command: mysqld --user=root
+    environment:
+      MYSQL_ROOT_PASSWORD: ibm198720 #root管理员用户密码
+    ports:
+      - 3307:3306
+    networks:
+      - brand_network
   brand-report-backend:
     container_name: brand-report-backend-container
     build: ./brand-report-backend/docker/backend/
@@ -92,6 +107,18 @@ services:
     depends_on:
       - brand-report-backend
       - word-mouth-front
+    networks:
+      - brand_network
+  corpus-label-system:
+    build: ./corpus-label-system/docker
+    container_name: brand-corpus-label-system
+    volumes:
+      - ./corpus-label-system:/app/corpus-label-system
+    restart: always
+    ports:
+      - 5001:5001
+    depends_on:
+      - mysql
     networks:
       - brand_network
 

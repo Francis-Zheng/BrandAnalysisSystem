@@ -15,3 +15,7 @@ bash before-start.sh
 echo "品牌口碑分析前端部分预操作..."
 cd ../../CNCommentFront/docker/
 bash before-start.sh
+
+echo "预料标注系统预操作..."
+cd ../../corpus-label-system/
+bash before-start.sh

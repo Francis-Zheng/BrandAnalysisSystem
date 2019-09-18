@@ -13,3 +13,6 @@
 [submodule "CNCommentFront"]
 	path = CNCommentFront
 	url = https://github.com/Francis-Zheng/CNCommentFront.git
+[submodule "corpus-label-system"]
+	path = corpus-label-system
+	url = https://github.com/Francis-Zheng/corpus-label-system.git

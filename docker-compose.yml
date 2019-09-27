@@ -56,6 +56,7 @@ services:
       - 8080:8080
     depends_on:
       - mongo
+      - word-mouth-front
     networks:
       - brand_network
   brand-user-authorization-backend:
@@ -113,8 +114,8 @@ services:
   corpus-label-system:
     build: ./corpus-label-system/docker
     container_name: brand-corpus-label-system
-    volumes:
-      - ./corpus-label-system:/app/corpus-label-system
+#    volumes:
+#      - ./corpus-label-system:/app/corpus-label-system
     restart: always
     ports:
       - 5001:5001

@@ -1,10 +1,10 @@
 # BrandAnalysisSystem
 品牌报告系统主项目
 
-## 1、各个子系统及数据库URL
+## 1、各个子系统及数据库URL(以下使用的都是docker转发到宿主机的端口，不是docker内部网络的端口)
 - 用户管理: `localhost:8085`
 - 调查问卷: `localhost:8087 `
-- 品牌报告后端: `localhost:8080`
+- 品牌报告后端: `localhost:8081`
 - 品牌报告前端（含口碑分析）: `localhost:3000`
 - 知识库构建、评论分析演示、文本情感极性计算演示: `localhost:5002`
 - 语料标注系统: `localhost:5001`
@@ -18,6 +18,11 @@
 ## 2、docker及docker-compose版本：
 - docker: Docker version 18.09.5
 - docker-compose: docker-compose version 1.17.0
+
+## 3、在新的机器上部署时注意事项：
+- 修改`BrandAnalysisSystem/brand-report-web/.env.development`文件, 将`REACT_APP_WORD_MOUTH_FRONT_BASE_URL`修改成该机器的对应的IP地址;
+- 在`BrandAnalysisSystem/BrandAnalysis-Questionnaire/mysite/settings.py`, 在`ALLOWED_HOSTS = ['0.0.0.0', 'localhost']`变量中添加一个该机器的对应的IP地址;
+- 在`BrandAnalysisSystem/CNCommentFront/conf.py`, 将`label_system_ip_in_docker_release = `修改成该机器的对应的IP地址;
 
 ## 3、系统启动方式：
 按顺序执行以下命令。

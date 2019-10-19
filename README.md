@@ -15,9 +15,11 @@
 - Redis: `localhost:6379`
 
 
-## 2、docker及docker-compose版本：
+## 2、运行部署之前需要安装的依赖：
 - docker: Docker version 18.09.5
 - docker-compose: docker-compose version 1.17.0
+- node: 11.15.0版本
+- 使用淘宝镜像源(国内直接使用npm可能会下载某些依赖的时候失败或者很慢)：npm install -g cnpm --registry=https://registry.npm.taobao.org
 
 ## 3、在新的机器上部署时注意事项：
 - 修改`BrandAnalysisSystem/brand-report-web/.env.development`文件, 将`REACT_APP_WORD_MOUTH_FRONT_BASE_URL`修改成该机器的对应的IP地址;

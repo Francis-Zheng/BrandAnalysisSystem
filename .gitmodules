@@ -16,3 +16,6 @@
 [submodule "corpus-label-system"]
 	path = corpus-label-system
 	url = https://github.com/Francis-Zheng/corpus-label-system.git
+[submodule "brand-report-data"]
+	path = brand-report-data
+	url = http://116.56.140.131:1080/packagewjx/brand-report-data.git

@@ -97,20 +97,6 @@ services:
       - redis
     networks:
       - brand_network
-  brand-report-web:
-    build: ./brand-report-web
-    container_name: brand-report-web-container
-    volumes:
-      - ./brand-report-web/src:/app/brand-report-web/src
-      - ./brand-report-web/public:/app/brand-report-web/public
-    restart: always
-    ports:
-      - 3000:3000
-    depends_on:
-      - brand-report-backend
-      - word-mouth-front
-    networks:
-      - brand_network
   corpus-label-system:
     build: ./corpus-label-system/docker
     container_name: brand-corpus-label-system
@@ -123,4 +109,11 @@ services:
       - mysql
     networks:
       - brand_network
-
+  brand-report-web:
+    build: ./brand-report-web/docker
+    ports:
+      - 10080:10080
+    depends_on:
+      - brand-report-backend
+    networks:
+      - brand_network

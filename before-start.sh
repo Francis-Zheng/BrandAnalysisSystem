@@ -19,3 +19,7 @@ bash before-start.sh
 echo "语料标注系统预操作..."
 cd ../../corpus-label-system/docker/
 bash before-start.sh
+
+echo "品牌报告Web应用预操作"
+cd ../../brand-report-web/docker
+bash before-start.sh
